@@ -72,29 +72,25 @@ Response:
 
 通过302 Redirect， 以HTTP GET的方式， 返回state以及生成的授权码code至redirect_uri. 后续可以通过code来调用Token接口返回access_token/id_token/refresh_token
 
-Example:GET https://<authorization_server_base>/authorize?  
+Example:
 
+```
+GET https://<authorization_server_base>/authorize?    
 response_type=code
-
 &scope=openid%20profile%20email%20read:meeting
-
 &client_id=s6BhdRkqt3
-
 &state=af0ifjsldkj
-
 &nonce=af867asfdbcda1safd
-
 &audience=https%3A%2F%2Fmeeting-api
-
 &ieg_biz_external_id=12345678
-
 &redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
+```
 
-HTTP/1.1 302 Found 
-
-Location: https://client.example.org/cb?  code=SplxlOBeZQQYbYS6WxSbIA
-
+```
+HTTP/1.1 302 Found  
+Location: https://client.example.org/cb?    code=SplxlOBeZQQYbYS6WxSbIA
 &state=af0ifjsldkj
+```
 
 ### token
 
@@ -118,25 +114,18 @@ Params:
 
 Response: 以Content-Type: application/json的形式返回token. 
 
- HTTP/1.1 200 OK 
-
+```
+ HTTP/1.1 200 OK  
  Content-Type: application/json 
-
  {
-
-   "access_token": "jwt_access_token_tbd"， //详细内容见下文
-
-   "token_type": "Bearer"， 
-
-   "refresh_token": "8xLOxBtZp8"，
-
-   "expires_in": 3600，  // access_token的过期时间
-
-   "id_token": "jwt_id_token" // optional 
-
-   "refresh_token_expires_in": 36000 // YuFu私有属性，表示refresh_token的过期时间 
-
+     "access_token": "jwt_access_token_tbd", //详细内容见下文
+     "token_type": "Bearer", 
+      "refresh_token": "8xLOxBtZp8",
+      "expires_in": 3600,    // access_token的过期时间
+      "id_token": "jwt_id_token" // optional 
+      "refresh_token_expires_in": 36000 // YuFu私有属性，表示refresh_token的过期时间 
 }
+```
 
 ## token更新模式
 
@@ -159,31 +148,27 @@ Params:
 
 Response: 以Content-Type: application/json的形式返回token. 
 
- HTTP/1.1 200 OK Content-Type: application/json
-
+```
+ HTTP/1.1 200 OK  Content-Type: application/json
  {
-
-   "access_token": "jwt_access_token_tbd"， // 详细内容见下文
-
-   "token_type": "Bearer"，
-
-   "expires_in": 3600，  // access_token的过期时间
-
-   "id_token": "jwt_id_token" // optional
-
+     "access_token": "jwt_access_token_tbd", // 详细内容见下文
+     "token_type": "Bearer",
+     "expires_in": 3600,    // access_token的过期时间
+     "id_token": "jwt_id_token" // optional
  }
+```
 
 若YuFu侧检查到refresh_token过期后，该接口会返回400， 且返回json格式的error. 用户必须使用授权码模式重新发起授权调用
 
 比如: 
 
- {  
+```
+  {   
+      "error": "invalid_grant",
+      "error_description": "invalid refresh_token"
+  }
 
-   "error": "invalid_grant"，
-
-   "error_description": "invalid refresh_token"
-
- }
+```
 
 ## logout登出接口
 
@@ -197,9 +182,7 @@ Params:
 | --------- | ---- | ------------------------------------------------------------ |
 | return_to | 否   | 值为合法的URI.   当YuFu侧登出之后，会通过HTTP REDIRECT的方式跳转至return_to指定的URI.   若不携带该参数或者该参数是个非法的URI， YuFu将会默认跳转至YuFu的登陆界面. |
 
-Limitation:
-
-- YuFu目前仅支持SAML认证源的SLO
+YuFu目前仅支持SAML认证源的SLO
 
 一个合法的登出接口，比如: https://xifeng-idp.i.yufuid.com/logout?return_to=https://www.baidu.com
 
