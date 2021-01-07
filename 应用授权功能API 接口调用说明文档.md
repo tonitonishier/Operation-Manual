@@ -16,23 +16,24 @@ YuFu作为AS， 提供两种场景下的授权接口:
 
 - 添加应用：在YuFu创建OIDC协议的应用实例并配置该应用的redirect_uri，应用创建完成后，需保留该应用的client_id/client_secret以便后续接口调用；
 
-![SQAPI2.png](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%20%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI2.png?raw=true)
+![SQAPI2.png](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI2.png?raw=true)
+
 
 - 添加Resource Server：在YuFu的API管理功能中创建API并配置该API（Resource Server）对应的audience；
 
-![SQAPI3.png](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%20%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI3.png?raw=true)
+![SQAPI3.png](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI3.png?raw=true)
 
 - 添加Resource Server对应的权限，且把权限分配给人；
 
-![](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%20%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI4.png?raw=true)
+![](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI4.png?raw=true)
 
-![SQAPI5](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%20%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI5.png?raw=true)
+![SQAPI5](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI5.png?raw=true)
 
-![SQAPI6](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%20%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI6.png?raw=true)
+![SQAPI6](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI6.png?raw=true)
 
 - 从YuFu侧获取授权接口的访问地址，以及access_token的签名密钥；
 
-![](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%20%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI7.png?raw=true)
+![](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI7.png?raw=true)
 
 应用侧需要实现的接口:
 
@@ -207,7 +208,7 @@ AS作为access_token的颁发者， RS作为access_token的消费者，两者之
 
 参见下面一个真实access_token解码之后的例子: 
 
-![](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%20%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI1.png?raw=true)
+![](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI1.png?raw=true)
 
 ### RS对access_token的校验
 
