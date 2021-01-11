@@ -10,31 +10,31 @@ YuFu作为一个Authorization Server(以下简称AS)， 可以授权用户访问
 
 - 添加应用：在YuFu创建OIDC协议的应用实例并配置该应用的redirect_uri，应用创建完成后，需保留该应用的client_id/client_secret以便后续接口调用；添加应用路径：管理员页面—导航栏应用—应用管理—添加应用—创建自定义应用—选择OpenID Connect—选择web—按照步骤完成应用的创建。
 
-![](C:\Users\cloud\Desktop\文档用图\SQAPI2.png)
+![](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI2.png?raw=true)
 
 - 添加Resource Server：在YuFu的API管理功能中创建API并配置该API（Resource Server）对应的audience；添加Resource Server路径：管理员页面—导航栏应用—API管理—点击创建。
 
-![](C:\Users\cloud\Desktop\文档用图\SQAPI3.png)
+![](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI3.png?raw=true)
 
 - 添加Resource Server对应的权限，且把权限分配给人；添加权限组路径：管理员页面—导航栏对象管理—权限组管理—添加权限组—在创建完成的权限组中进行关联人员和关联权限操作。
 
-![](C:\Users\cloud\Desktop\文档用图\SQAPI4.png)
+![](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI4.png?raw=true)
 
-![SQAPI5](C:\Users\cloud\Desktop\文档用图\SQAPI5.png)
+![SQAPI5](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI5.png?raw=true)
 
-![SQAPI6](C:\Users\cloud\Desktop\文档用图\SQAPI6.png)
+![SQAPI6](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI6.png?raw=true)
 
 - 从YuFu侧获取授权接口的访问地址，并选择验证token签名公钥；YuFu提供了两种验证签名的公钥，代理API的OIDC应用的公钥（更方便）和API独有的公钥（更安全）。
   - 代理API的OIDC应用的公钥获取路径：管理员页面—导航栏应用—应用管理—选择代理API的OIDC应用—登录配置—Well-known 接口—点击进入接口详情页面复制“jwks_uri”；
   - API独有的公钥获取路径：管理员页面—导航栏应用—API管理—选择已创建的API—进入详情页面点选token设置—验证签名公钥Public Key设置项—选择使用当前API独有的公钥并复制；
 
-![](C:\Users\cloud\Desktop\应用授权功能API 接口调用说明文档用图\SQAPI9.png)
+![](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI9.png?raw=true)
 
-![](C:\Users\cloud\Desktop\应用授权功能API 接口调用说明文档用图\SQAPI10.png)
+![](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI10.png?raw=true)
 
-![](C:\Users\cloud\Desktop\文档用图\SQAPI7.png)
+![](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI7.png?raw=true)
 
-![](C:\Users\cloud\Desktop\应用授权功能API 接口调用说明文档用图\SQAPI8.png)
+![](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI8.png?raw=true)
 
 应用侧需要实现的接口:
 
@@ -209,7 +209,7 @@ AS作为access_token的颁发者， RS作为access_token的消费者，两者之
 
 参见下面一个真实access_token解码之后的例子: 
 
-![](C:\Users\cloud\Desktop\文档用图\SQAPI1.png)
+![](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI1.png?raw=true)
 
 ### RS对access_token的校验
 
