@@ -2,51 +2,55 @@
 
 ## 背景
 
-YuFu作为一个Authorization Server(以下简称AS)， 可以授权用户zhangsan访问指定的Resource Server(以下简称RS，RS对应YuFu中的应用系统)。授权成功之后， YuFu给RS颁发access_token， RS通过解析access_token的合法性以及内容，来判断zhangsan是否有权限访问Resource Server， 具体参见下文"RS如何信任AS"。
-
-YuFu作为AS， 提供两种场景下的授权接口:
-
-- 授权码模式: zhangsan通过浏览器发起授权请求；
-
-- token更新模式: 服务端->YuFu服务端的调用，更新授权；
+YuFu作为一个Authorization Server(以下简称AS)， 可以授权用户访问指定的Resource Server(以下简称RS，RS对应YuFu中的应用系统)。授权成功之后， YuFu给RS颁发access_token， RS通过解析access_token的合法性以及内容，来判断zhangsan是否有权限访问Resource Server， 具体参见下文"RS如何信任AS"。
 
 ## 接入前提
 
 需要在YuFu的管理控制台上添加如下配置:
 
-- 添加应用：在YuFu创建OIDC协议的应用实例并配置该应用的redirect_uri，应用创建完成后，需保留该应用的client_id/client_secret以便后续接口调用；
+- 添加应用：在YuFu创建OIDC协议的应用实例并配置该应用的redirect_uri，应用创建完成后，需保留该应用的client_id/client_secret以便后续接口调用；添加应用路径：管理员页面—导航栏应用—应用管理—添加应用—创建自定义应用—选择OpenID Connect—选择web—按照步骤完成应用的创建。
 
-![SQAPI2.png](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI2.png?raw=true)
-- 添加Resource Server：在YuFu的API管理功能中创建API并配置该API（Resource Server）对应的audience；
+![](C:\Users\cloud\Desktop\文档用图\SQAPI2.png)
 
-![SQAPI3.png](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI3.png?raw=true)
+- 添加Resource Server：在YuFu的API管理功能中创建API并配置该API（Resource Server）对应的audience；添加Resource Server路径：管理员页面—导航栏应用—API管理—点击创建。
 
-- 添加Resource Server对应的权限，且把权限分配给人；
+![](C:\Users\cloud\Desktop\文档用图\SQAPI3.png)
 
-![](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI4.png?raw=true)
+- 添加Resource Server对应的权限，且把权限分配给人；添加权限组路径：管理员页面—导航栏对象管理—权限组管理—添加权限组—在创建完成的权限组中进行关联人员和关联权限操作。
 
-![SQAPI5](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI5.png?raw=true)
+![](C:\Users\cloud\Desktop\文档用图\SQAPI4.png)
 
-![SQAPI6](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI6.png?raw=true)
+![SQAPI5](C:\Users\cloud\Desktop\文档用图\SQAPI5.png)
 
-- 从YuFu侧获取授权接口的访问地址，以及access_token的签名密钥；
+![SQAPI6](C:\Users\cloud\Desktop\文档用图\SQAPI6.png)
 
-![](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI7.png?raw=true)
+- 从YuFu侧获取授权接口的访问地址，并选择验证token签名公钥；YuFu提供了两种验证签名的公钥，代理API的OIDC应用的公钥（更方便）和API独有的公钥（更安全）。
+  - 代理API的OIDC应用的公钥获取路径：管理员页面—导航栏应用—应用管理—选择代理API的OIDC应用—登录配置—Well-known 接口—点击进入接口详情页面复制“jwks_uri”；
+  - API独有的公钥获取路径：管理员页面—导航栏应用—API管理—选择已创建的API—进入详情页面点选token设置—验证签名公钥Public Key设置项—选择使用当前API独有的公钥并复制；
+
+![](C:\Users\cloud\Desktop\应用授权功能API 接口调用说明文档用图\SQAPI9.png)
+
+![](C:\Users\cloud\Desktop\应用授权功能API 接口调用说明文档用图\SQAPI10.png)
+
+![](C:\Users\cloud\Desktop\文档用图\SQAPI7.png)
+
+![](C:\Users\cloud\Desktop\应用授权功能API 接口调用说明文档用图\SQAPI8.png)
 
 应用侧需要实现的接口:
 
-- redirect_uri: 在"授权码模式"中，YuFu会把授权码(code)返回至指定的redirect_uri. 所以应用侧需要实现redirect_uri对应的接口，来获取code， 然后进行后续/token调用，详情请见下文。
+- redirect_uri: 在"授权"过程中，YuFu会把授权码(code)返回至指定的redirect_uri. 所以应用侧需要实现redirect_uri对应的接口，来获取code， 然后进行后续/token调用，详情请见下文。
 
-## 授权码模式
+## 授权流程
 
-授权码模式是用户zhangsan通过浏览器发起授权的一个场景， 需要两个步骤来完成整个授权流程：
+YuFu作为AS，授权流程步骤如下：
 
-- 浏览器发起调用/authorize接口请求授权码；
-- 后台调用/token接口: 拿授权码换取access_token/refresh_token；
+- 应用侧获取AS颁发的授权码code: 用户通过浏览器访问应用时，应用会向AS发起授权请求，AS向应用返回授权码code；
+- 应用侧使用code换取AS颁发的access_token/id_token/refresh_token；
+- 应用侧使用refresh_token更新access_token/id_token，即为应用侧更新授权；
 
-授权码模式还适用于zhangsan未登陆场景，当YuFu收到一个/authorize授权请求时，会检查当前用户zhangsan是否在YuFu测处于登陆状态，若未登陆则重定向至YuFu做登陆. 若已登陆，则返回授权码。
+授权流程的前置条件是用户已经在AS侧处于登录状态，当YuFu收到一个/authorize授权请求时，会检查当前用户是否在YuFu测处于登陆状态，若未登陆则重定向至YuFu做登陆，若已登陆，则返回授权码。
 
-### authorize
+### authorize获取code
 
 发起授权请求
 
@@ -56,12 +60,12 @@ Params:
 
 | **参数名**                                    | **必填** | **说明**                                                     |
 | --------------------------------------------- | -------- | ------------------------------------------------------------ |
-| client_id                                     | 是       | 发起授权请求的应用client_id. (IEG场景即为Gateway的client_id， 参见接入前提) |
+| client_id                                     | 是       | 发起授权请求的应用client_id                                  |
 | response_type                                 | 是       | 为code， 即授权码模式                                        |
 | redirect_uri                                  | 是       | 回调链接，AS会把生成的授权码以重定向的方式返回至redirect_uri (参见接入前提) |
 | state                                         | 否       | CSRF安全参数， 建议使用: 当AS重定向至redirect_uri时，会原封不动的把state参数回传 |
 | nonce                                         | 否       | 防重放安全参数，建议使用: AS颁发的id_token里会通过nonce这个claim来回传， 以便于id_token合法性校验 |
-| scope                                         | 是       | 授权的范围: 多值属性，以空格分割. 通常情况下传入openid profile  email， 调用者可以把Resource Server的Permission作为scope参数传递  当包括offline_access时表示请求AS返回refresh_token  注意: IEG需要额外传递ieg:bizid来表示需要在access_token里返回用户所在的业务线 |
+| scope                                         | 是       | 授权的范围: 多值属性，以空格分割. 通常情况下传入openid profile  email， 调用者可以把Resource Server的Permission作为scope参数传递  当包括offline_access时表示请求AS返回refresh_token |
 | audience                                      | 否       | 授权请求访问Resource Server的audience属性.   当不传时，颁发的access_token只能用来访问YuFu的/userinfo接口， 而不能访问Resource Server |
 | 以下参数仅针对PKCE场景(SPA)生效(协议标准参数) |          |                                                              |
 | code_challenge                                | 是       | 随机生成，需要和下面Token接口的code_verifier配对，生成算法为code_challenge_method约定的算法， 参见 |
@@ -81,7 +85,6 @@ response_type=code
 &state=af0ifjsldkj
 &nonce=af867asfdbcda1safd
 &audience=https%3A%2F%2Fmeeting-api
-&ieg_biz_external_id=12345678
 &redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
 ```
 
@@ -91,9 +94,9 @@ Location: https://client.example.org/cb?    code=SplxlOBeZQQYbYS6WxSbIA
 &state=af0ifjsldkj
 ```
 
-### token
+### 获取token
 
-通过授权码请求access_token/id_token/refresh_token， 仅适用于应用后台->YuFu后台的调用场景
+应用侧通过授权码code请求access_token/id_token/refresh_token，。
 
 Endpoint: POST https://<authorization_server_base>/token
 
@@ -126,9 +129,9 @@ Response: 以Content-Type: application/json的形式返回token.
 }
 ```
 
-## token更新模式
+### 更新token
 
-token更新模式仅适用于应用后台→YuFu后台的调用场景， 携带通过授权码模式返回的refresh_token来更新access_token/id_token。
+更新token步骤避免了token过期后重复获取授权码code的过程，支持应用侧通过授权码code返回的refresh_token来更新access_token/id_token。
 
 Endpoint: POST https://<authorization_server_base>/token
 
@@ -201,12 +204,12 @@ AS作为access_token的颁发者， RS作为access_token的消费者，两者之
 - access_token里会包含zhangsan的登陆名: preferred_username
 - access_token里包含zhangsan在这个RS上的权限: perms
 - access_token里包含这个token是颁发给RS的: aud字段里包括RS的audience
-- access_token里包含这个token是由哪个应用代为发起授权的: azp字段.(IEG场景为Gateway的client_id)
+- access_token里包含这个token是由哪个应用代为发起授权的: azp字段
 - access_token里包含有效期: exp(过期时间)， iat(颁发时间)
 
 参见下面一个真实access_token解码之后的例子: 
 
-![](https://github.com/tonitonishier/Operation-Manual/blob/main/%E5%BA%94%E7%94%A8%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BDAPI%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3%E7%94%A8%E5%9B%BE/SQAPI1.png?raw=true)
+![](C:\Users\cloud\Desktop\文档用图\SQAPI1.png)
 
 ### RS对access_token的校验
 
