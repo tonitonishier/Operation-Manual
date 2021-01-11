@@ -1,5 +1,15 @@
 # 应用授权功能API 接口调用说明文档
-
+- [应用授权功能API 接口调用说明文档](#应用授权功能api-接口调用说明文档)
+  - [背景](#背景)
+  - [接入前提](#接入前提)
+  - [授权流程](#授权流程)
+    - [authorize获取code](#authorize获取code)
+    - [获取token](#获取token)
+    - [更新token](#更新token)
+  - [logout登出接口](#logout登出接口)
+  - [RS如何信任AS](#rs如何信任as)
+    - [AS颁发的access_token具备如下特点](#as颁发的access_token具备如下特点)
+    - [RS对access_token的校验](#rs对access_token的校验)
 ## 背景
 
 YuFu作为一个Authorization Server(以下简称AS)， 可以授权用户访问指定的Resource Server(以下简称RS，RS对应YuFu中的应用系统)。授权成功之后， YuFu给RS颁发access_token， RS通过解析access_token的合法性以及内容，来判断zhangsan是否有权限访问Resource Server， 具体参见下文"RS如何信任AS"。
